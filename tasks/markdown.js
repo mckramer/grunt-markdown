@@ -26,7 +26,7 @@ module.exports = function(grunt) {
       templateContext: {},
       template: path.join(__dirname, 'template.html')
     });
-    var template = grunt.file.read(options.template);
+    var template = options.template && grunt.file.read(options.template);
 
     // Iterate over all specified file groups.
     grunt.util.async.forEachLimit(this.files, 25, function (file, next) {

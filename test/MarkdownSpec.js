@@ -181,5 +181,18 @@ describe('grunt-markdown', function () {
 
   });
 
+  describe('optional template', function () {
+    it('should use the template when specified', function () {
+      assert.equal($result.find('body').length, 1, 'expected the content to be wrapped by the template');
+    });
+
+    it('should ignore the template when not provided', function () {
+      template = false;
+      getjQuery();
+
+      assert.equal($result.find('body').length, 0, 'expected the content to not be wrapped');
+    });
+  });
+
 
 });

@@ -76,9 +76,12 @@ exports.init = function(grunt) {
     html = markdown(src);
     html = options.postCompile(html, templateContext) || html;
 
-    templateContext.content = html;
-
-    src = _.template(template, templateContext);
+    if (template) {
+      templateContext.content = html;
+      src = _.template(template, templateContext);
+    } else {
+      src = html;
+    }
     return src;
 
   };
