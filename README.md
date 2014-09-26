@@ -119,11 +119,35 @@ This can also be a function which is expected to return a context object.
 
 ### markdownOptions
 
-Most markdown options are passed as-is to the [marked](https://github.com/chjj/marked) markdown parser. The only option that is processed prior to compiling the markdown is the `highlight` option. If you specify 'auto' or 'manual' the task will handle highlighting code blocks for you using highlight.js. If you pass a custom function as the highlight option it will be used to highlight the code.
+Most markdown options are passed as-is to the [marked](https://github.com/chjj/marked) markdown parser. However, two options may be processed prior to passing them along.
 
-* `auto`: Will try to detect the language
-* `manual`: will pass the language name from markdown to the highlight function
-* `codeLines`: specify text that should wrap code lines
+#### highlight
+If you specify 'auto' or 'manual' the task will handle highlighting code blocks for you using highlight.js. If you pass a custom function as the highlight option it will be used to highlight the code.
+
+Value         | Result
+------------- | --------------------------------------------------------------------
+`'auto'`      | Will try to detect the language
+`'manual'`    | will pass the language name from markdown to the highlight function
+`'codeLines'` | specify text that should wrap code lines
+
+#### renderer
+The `renderer` option was added with v0.3.x of `marked`. You can override the default renderer two different ways:
+
+Type       | Result
+---------- | -----------------------------------------------------------------------------------------
+`function` | Passed directly through to `marked`, as-is
+`object`   | A new renderer will be created and the provided keys will override the default functions
+
+```js
+// Using an object
+markdownOptions: {
+  renderer: {
+    link: function (href, title, text) {
+      // snip
+    }
+  }
+}
+```
 
 ## License
 Copyright (c) 2012-2013 James Morrin

@@ -181,5 +181,18 @@ describe('grunt-markdown', function () {
 
   });
 
+  describe('override renderer', function () {
+    it('should pass before wrapper', function () {
+      options.markdownOptions.renderer = {
+        link: function (href, title, text) {
+          return '<a href="" class="custom-link"';
+        }
+      };
+      getjQuery();
+
+      assert.equal($result.find('a.custom-link').length, 1, 'expected for links to have custom class');
+    });
+  });
+
 
 });

@@ -22,6 +22,7 @@ exports.init = function(grunt) {
     var templateContext = null;
     var codeLines = options.codeLines;
     var shouldWrap = codeLines && codeLines.before && codeLines.after;
+    var customRenderer;
 
     function wrapLines(code) {
       var out = [];
@@ -59,6 +60,15 @@ exports.init = function(grunt) {
           };
         }
 
+      }
+
+      // Custom renderer
+      if (options.markdownOptions && _.isPlainObject(options.markdownOptions.renderer)) {
+        customRenderer = new markdown.Renderer();
+        _.forEach(options.markdownOptions.renderer, function (func, key) {
+          customRenderer[key] = func;
+        });
+        options.markdownOptions.renderer = customRenderer;
       }
     }
 
